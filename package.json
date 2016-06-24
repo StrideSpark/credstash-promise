@@ -1,6 +1,6 @@
 {
   "name": "credstash-promise",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "credstash wrapper that exposes promises and typescript definitions",
   "main": "index.js",
   "scripts": {
