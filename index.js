@@ -12,6 +12,5 @@ function fetchCred(name) {
         });
     });
 }
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.default = fetchCred;
+exports.fetchCred = fetchCred;
 //# sourceMappingURL=index.js.map

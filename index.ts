@@ -3,7 +3,7 @@
 const Credstash = require('credstash');
 const credstash = new Credstash();
 
-export default function fetchCred(name: string): Promise<string> {
+export function fetchCred(name: string): Promise<string> {
     return new Promise<string>(
         (resolve, reject) =>
             credstash.get(name, (err: any, secret: string) => {
