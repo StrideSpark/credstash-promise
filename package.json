@@ -3,6 +3,7 @@
   "version": "1.0.3",
   "description": "credstash wrapper that exposes promises and typescript definitions",
   "main": "index.js",
+  "typings": "index.d.ts",
   "scripts": {
     "prepublish": "tsc"
   },
