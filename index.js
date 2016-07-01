@@ -1,4 +1,3 @@
-/// <reference path = "index.d.ts" />
 "use strict";
 var Credstash = require('credstash');
 var credstash = new Credstash();

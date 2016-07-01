@@ -1,5 +1,3 @@
-/// <reference path = "index.d.ts" />
-
 const Credstash = require('credstash');
 const credstash = new Credstash();
 
