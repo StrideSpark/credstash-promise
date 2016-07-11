@@ -1,4 +1,4 @@
-const Credstash = require('credstash');
+const Credstash = require('@stridespark/credstash');
 const credstash = new Credstash();
 
 export function fetchCred(name: string): Promise<string> {
