@@ -4,7 +4,10 @@ credstash client wrapper with promises and typescript types
 ## installation
 
 ```bash
-npm install credstash-promise
+npm install credstash-promise --save
+
+#if you don't already refer to aws-sdk, you need to add it, it is a peer dependency:
+npm install aws-sdk --save
 ```
 
 ## usage
