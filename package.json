@@ -1,10 +1,10 @@
 {
   "name": "credstash-promise",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "credstash wrapper that exposes promises and typescript definitions",
   "main": "index.js",
   "scripts": {
-    "prepublish": "tsc --declaration"
+    "publish": "tsc --declaration && publish"
   },
   "author": "",
   "license": "MIT",
@@ -15,6 +15,7 @@
   "devDependencies": {
     "@types/es6-promise": "0.0.29",
     "@types/node": "6.0.31",
+    "publish": "0.6.0",
     "typescript": "2.0.0"
   }
 }
