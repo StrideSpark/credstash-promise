@@ -4,7 +4,7 @@
   "description": "credstash wrapper that exposes promises and typescript definitions",
   "main": "index.js",
   "scripts": {
-    "publish": "tsc --declaration && publish"
+    "2npm": "tsc --declaration && publish"
   },
   "author": "",
   "license": "MIT",
