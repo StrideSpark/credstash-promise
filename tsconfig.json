@@ -9,13 +9,6 @@
       "es2015.promise"
     ],
     "sourceMap": true,
-    "strictNullChecks": true,
-    "noResolve": true
-  },
-  "exclude": [
-    "node_modules"
-  ],
-  "atom": {
-    "formatOnSave": true
+    "strictNullChecks": true
   }
 }
