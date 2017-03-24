@@ -5,8 +5,8 @@
   "main": "src/index.js",
   "typings": "src/index.d.ts",
   "files": [
-    "*.js",
-    "*.d.ts"
+    "src/*.d.ts",
+    "src/*.js"
   ],
   "scripts": {
     "2npm": "tsc --declaration && publish",
