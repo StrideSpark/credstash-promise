@@ -10,7 +10,9 @@
   ],
   "scripts": {
     "2npm": "tsc --declaration && publish",
-    "test": "mocha"
+    "test": "MOCHA_FILE=./output/junit.xml nyc mocha --reporter mocha-multi --reporter-options spec=-,mocha-junit-reporter=-",
+    "test:mocha": "mocha",
+    "test:watch": "mocha --watch"
   },
   "author": "",
   "license": "MIT",
@@ -25,10 +27,20 @@
     "aws-sdk": "^2.32.0",
     "chai": "git://github.com/stridespark/chai.git#fix-572",
     "mocha": "^3.2.0",
+    "mocha-junit-reporter": "^1.13.0",
     "mocha-multi": "^0.10.0",
     "mocha-notifier-reporter": "^0.1.2",
+    "nyc": "^10.1.2",
     "publish": "0.6.0",
     "source-map-support": "^0.4.14",
     "typescript": "^2.2.1"
+  },
+  "nyc": {
+    "reporter": [
+      "text-summary",
+      "html"
+    ],
+    "sourceMap": true,
+    "instrument": true
   }
 }

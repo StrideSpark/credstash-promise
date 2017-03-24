@@ -4,3 +4,7 @@ typings
 *.js
 *.js.map
 *.d.ts
+output
+coverage
+.nyc_output
+*.log
