@@ -1,34 +1,39 @@
-machine:
-  node:
-    version: 6.9.1
-  environment:
-    YARN_VERSION: 0.18.1
-    PATH: "${PATH}:${HOME}/.yarn/bin:${HOME}/${CIRCLE_PROJECT_REPONAME}/node_modules/.bin"
+version: 2
+jobs:
+  build:
+    working_directory: /app
+    docker:
+      - image: stridespark/build-image:1.0.17-citus
+    steps:
+      - checkout
 
-dependencies:
-  pre:
-    - mv circle.npmrc ~/.npmrc
-    - |
-      if [[ ! -e ~/.yarn/bin/yarn || $(yarn --version) != "${YARN_VERSION}" ]]; then
-        echo "Download and install Yarn."
-        curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version $YARN_VERSION
-      else
-        echo "The correct version of Yarn is already installed."
-      fi
-  override:
-    - yarn install
-  cache_directories:
-    - ~/.yarn
-    - ~/.cache/yarn
+      - restore_cache:
+          key: yarnlock-{{ checksum "yarn.lock" }}
+      - run: yarn
+      - save_cache:
+          key: yarnlock-{{ checksum "yarn.lock" }}
+          paths:
+            - /home/circleci/.cache/yarn/v1
 
-test:
-  pre:
-    - tsc --declaration
-  post:
-    - mv coverage/* $CIRCLE_ARTIFACTS/ || exit_on_error "No coverage!"
+      - run: node_modules/.bin/tsc --pretty
+      - run: yarn lint
+      - run: yarn test
+      - run: yarn report
 
-deployment:
-  npm:
-    branch: master
-    commands:
-      - if [[ $DAILY_TESTS != true ]]; then publish; fi
+      - store_test_results:
+          path: output/
+
+      - deploy:
+          name: Publish to NPM
+          command: |
+            if [ "${DAILY_TESTS}" != "true" ] && [ "${CIRCLE_BRANCH}" == "staging" ]; then
+              npm run 2npm
+            else
+              echo skip
+            fi
+
+experimental:
+  notify:
+    branches:
+      only:
+        - staging
