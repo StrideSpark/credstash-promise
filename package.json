@@ -34,6 +34,7 @@
     "@types/nodecredstash": "^2.0.0",
     "aws-sdk": "^2.229.1",
     "chai": "^4.0.0",
+    "codecov": "^3.0.0",
     "mocha": "^5.1.1",
     "mocha-junit-reporter": "^1.17.0",
     "mocha-multi": "^1.0.1",
