@@ -56,7 +56,7 @@ List secrets
 export async function listAllSecretsAllVersions(contains?: string): Promise<{ name: string; version: string }[]> {
     const results: { name: string; version: string }[] = (await credstash.listSecrets()) as any;
     if (contains != undefined) {
-        return results.filter(r => r.name.toLowerCase().indexOf(contains.toLowerCase()) != -1);
+        return results.filter(r => r.name.toLowerCase().indexOf(contains.toLowerCase()) !== -1);
     }
     return results;
 }
@@ -75,7 +75,7 @@ export async function putSecret(name: string, secret: string): Promise<{ name: s
         await credstash.putSecret({ name, secret, context: {} });
         return { name, version: '0000000000000000001' };
     } catch (err) {
-        if (err.message.indexOf('is already in the credential store') != -1) {
+        if (err.message.indexOf('is already in the credential store') !== -1) {
             const newVersion = await credstash.incrementVersion({ name });
             await credstash.putSecret({ name, secret, context: {}, version: +newVersion });
             return { name, version: newVersion };
