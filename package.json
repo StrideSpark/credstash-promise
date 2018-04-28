@@ -1,6 +1,6 @@
 {
-  "name": "credstash-promise",
-  "version": "2.1.2",
+  "name": "@stridespark/credstash-promise",
+  "version": "3.0.0",
   "description": "credstash wrapper that exposes promises and typescript definitions",
   "main": "src/index.js",
   "typings": "src/index.d.ts",
@@ -10,37 +10,38 @@
   ],
   "scripts": {
     "2npm": "tsc --declaration && publish",
-    "test": "MOCHA_FILE=./output/junit.xml nyc mocha --reporter mocha-multi --reporter-options spec=-,mocha-junit-reporter=-",
+    "test": "MOCHA_FILE=./output/junit.xml nyc mocha --forbid-only --reporter mocha-multi --reporter-options spec=-,mocha-junit-reporter=-",
     "test:mocha": "mocha",
-    "test:watch": "mocha --watch"
+    "test:watch": "mocha --watch",
+    "mocha": "NODE_ENV=test KEY_ID=3b013fd4-5640-4076-ab8c-296dedf225e5 mocha",
+    "prettier": "prettier --write '**/*.ts' '**/*.tsx'",
+    "lintfix": "tslint -p . --fix",
+    "lint": "tslint -p .",
+    "report": "nyc report --reporter=text-lcov > coverage.lcov && codecov"
   },
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@stridespark/credstash": "^1.0.2"
+    "lodash": "^4.17.10",
+    "nodecredstash": "^2.0.2"
   },
   "repository": "StrideSpark/credstash-promise",
   "devDependencies": {
-    "@types/chai": "^3.4.35",
-    "@types/mocha": "^2.2.40",
-    "@types/node": "6.0.31",
-    "aws-sdk": "^2.32.0",
-    "chai": "git://github.com/stridespark/chai.git#fix-572",
-    "mocha": "^3.2.0",
-    "mocha-junit-reporter": "^1.13.0",
-    "mocha-multi": "^0.10.0",
+    "@types/aws-sdk": "^2.7.0",
+    "@types/chai": "^4.1.3",
+    "@types/lodash": "^4.14.107",
+    "@types/mocha": "^5.2.0",
+    "@types/node": "9.6.6",
+    "@types/nodecredstash": "^2.0.0",
+    "aws-sdk": "^2.2.1",
+    "chai": "^4.0.0",
+    "mocha": "^5.1.1",
+    "mocha-junit-reporter": "^1.17.0",
+    "mocha-multi": "^1.0.1",
     "mocha-notifier-reporter": "^0.1.2",
-    "nyc": "^10.1.2",
+    "nyc": "^11.7.1",
     "publish": "0.6.0",
-    "source-map-support": "^0.4.14",
-    "typescript": "^2.2.1"
-  },
-  "nyc": {
-    "reporter": [
-      "text-summary",
-      "html"
-    ],
-    "sourceMap": true,
-    "instrument": true
+    "source-map-support": "^0.5.4",
+    "typescript": "^2.8.3"
   }
 }

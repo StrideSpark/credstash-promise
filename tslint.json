@@ -1,0 +1,10 @@
+{
+    "extends": [
+        "tslint-stridespark",
+        "tslint-config-prettier",
+        "tslint-plugin-prettier"
+    ],
+    "rules": {
+        "prettier": true
+    }
+}
