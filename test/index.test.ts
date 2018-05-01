@@ -3,7 +3,7 @@ import { assert } from 'chai';
 
 describe('credstash-promise', function() {
     describe('fetch app cred', function() {
-        it('fetches app-level creds', async function() {
+        it('fetches full-level creds', async function() {
             const result = await fetchAppCred('test', 'credstash-promise', 'testval.foo');
             assert.equal(result, 'applevel');
         });
@@ -11,6 +11,11 @@ describe('credstash-promise', function() {
         it('fetches env-level creds when app has nothing', async function() {
             const result = await fetchAppCred('test', 'bad-app', 'testval.foo');
             assert.equal(result, 'envlevel');
+        });
+
+        it('fetches app-level creds when env has nothing', async function() {
+            const result = await fetchAppCred('bad-env', 'credstash-promise', 'testval.foo');
+            assert.equal(result, 'app-name-only');
         });
 
         it('fetches default creds when env and app has nothing', async function() {
