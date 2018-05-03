@@ -8,14 +8,18 @@ describe('credstash-promise', function() {
             assert.equal(result, 'applevel');
         });
 
+        it('fetches app.name creds when env.app.name has nothing (but env.name does)', async function() {
+            assert.equal(await fetchCred('test2.testval.foo'), 'env-only'); //env.name has a value
+            assert.equal(await fetchCred('credstash-promise.testval.foo'), 'app-name-only'); //appname.name has a value
+
+            //fetchAppCred prefers appname.name
+            const result = await fetchAppCred('test2', 'credstash-promise', 'testval.foo');
+            assert.equal(result, 'app-name-only');
+        });
+
         it('fetches env-level creds when app has nothing', async function() {
             const result = await fetchAppCred('test', 'bad-app', 'testval.foo');
             assert.equal(result, 'envlevel');
-        });
-
-        it('fetches app-level creds when env has nothing', async function() {
-            const result = await fetchAppCred('bad-env', 'credstash-promise', 'testval.foo');
-            assert.equal(result, 'app-name-only');
         });
 
         it('fetches default creds when env and app has nothing', async function() {
