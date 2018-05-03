@@ -3,17 +3,45 @@ import { assert } from 'chai';
 
 describe('credstash-promise', function() {
     describe('fetch app cred', function() {
-        it('fetches app-level creds', async function() {
+        it('fetches full-level creds', async function() {
+            //env.app.name has a value:
+            assert.equal(await fetchCred('test.credstash-promise.testval.foo'), 'applevel');
+
+            //that value is found by fetchAppCred:
             const result = await fetchAppCred('test', 'credstash-promise', 'testval.foo');
             assert.equal(result, 'applevel');
         });
 
+        it('fetches app.name creds when env.app.name has nothing (but env.name does)', async function() {
+            assert.equal(await fetchCred('test2.testval.foo'), 'env-only'); //env.name has a value
+            assert.equal(await fetchCred('credstash-promise.testval.foo'), 'app-name-only'); //appname.name has a value
+
+            //fetchAppCred prefers appname.name
+            const result = await fetchAppCred('test2', 'credstash-promise', 'testval.foo');
+            assert.equal(result, 'app-name-only');
+        });
+
         it('fetches env-level creds when app has nothing', async function() {
+            //app has nothing
+            assert.isUndefined(await fetchCred('bad-app.testval.foo'));
+
+            //env has envlevel:
+            assert.equal(await fetchCred('test.testval.foo'), 'envlevel');
+
+            //fetchCred finds envlevel:
             const result = await fetchAppCred('test', 'bad-app', 'testval.foo');
             assert.equal(result, 'envlevel');
         });
 
         it('fetches default creds when env and app has nothing', async function() {
+            //env and app have nothing:
+            assert.isUndefined(await fetchCred('bad-env.testval.foo'));
+            assert.isUndefined(await fetchCred('bad-app.testval.foo'));
+
+            //defaultval is there:
+            assert.equal(await fetchCred('testval.foo'), 'default4');
+
+            //fetchAppCred finds default:
             const result = await fetchAppCred('bad-env', 'bad-app', 'testval.foo');
             assert.equal(result, 'default4');
         });

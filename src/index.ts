@@ -24,7 +24,10 @@ export async function fetchCred(name: string): Promise<string | undefined> {
 }
 
 export async function fetchAppCred(env: string, appName: string, name: string): Promise<string> {
-    const appVal = await fetchCred(`${env}.${appName}.${name}`);
+    const fullVal = await fetchCred(`${env}.${appName}.${name}`);
+    if (fullVal != undefined) return fullVal;
+
+    const appVal = await fetchCred(`${appName}.${name}`);
     if (appVal != undefined) return appVal;
 
     const envVal = await fetchCred(`${env}.${name}`);
