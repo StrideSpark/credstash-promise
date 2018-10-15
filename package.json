@@ -1,6 +1,6 @@
 {
   "name": "@stridespark/credstash-promise",
-  "version": "3.0.2",
+  "version": "3.1.0",
   "description": "credstash wrapper that exposes promises and typescript definitions",
   "main": "src/index.js",
   "typings": "src/index.d.ts",
