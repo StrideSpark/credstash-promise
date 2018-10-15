@@ -23,7 +23,7 @@ export async function fetchCred(name: string): Promise<string | undefined> {
     }
 }
 
-export async function fetchAppCred(env: string, appName: string, name: string): Promise<string> {
+export async function fetchAppCred(env: string, appName: string, name: string, defaultVal?: string): Promise<string> {
     const fullVal = await fetchCred(`${env}.${appName}.${name}`);
     if (fullVal != undefined) return fullVal;
 
@@ -33,7 +33,9 @@ export async function fetchAppCred(env: string, appName: string, name: string): 
     const envVal = await fetchCred(`${env}.${name}`);
     if (envVal != undefined) return envVal;
 
-    const defaultVal = await fetchCred(name);
+    const noScopeVal = await fetchCred(name);
+    if (noScopeVal != undefined) return noScopeVal;
+
     if (defaultVal != undefined) return defaultVal;
 
     throw Error('no secrets match env=' + env + ', appName=' + appName + ', name=' + name);

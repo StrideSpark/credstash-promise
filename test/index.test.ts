@@ -55,6 +55,10 @@ describe('credstash-promise', function() {
             }
             assert.fail();
         });
+
+        it('does not throw when no matching values but yes default val', async function() {
+            assert.equal('default', await fetchAppCred('not', 'in', 'existence', 'default'));
+        });
     });
 
     describe('fetchCred', function() {
@@ -78,9 +82,7 @@ describe('credstash-promise', function() {
         it('as expected', async function() {
             const results = await fetchCredHistory('testval.foo');
             assert.deepEqual(results, [
-                { version: '0000000000000000004', secret: 'default4' },
-                { version: '0000000000000000003', secret: 'default3' },
-                { version: '0000000000000000002', secret: 'default2' },
+                { version: '0000000000000000002', secret: 'default4' },
                 { version: '0000000000000000001', secret: 'default' },
             ]);
         });
@@ -106,8 +108,6 @@ describe('credstash-promise', function() {
             const results = await listAllSecretsAllVersions();
             assert.isAtLeast(results.length, 100);
             assert.includeDeepMembers(results, [
-                { name: 'testval.foo', version: '0000000000000000004' },
-                { name: 'testval.foo', version: '0000000000000000003' },
                 { name: 'testval.foo', version: '0000000000000000002' },
                 { name: 'testval.foo', version: '0000000000000000001' },
             ]);
@@ -117,8 +117,6 @@ describe('credstash-promise', function() {
             const results = await listAllSecretsAllVersions('foo');
             assert.isAtLeast(results.length, 4);
             assert.includeDeepMembers(results, [
-                { name: 'testval.foo', version: '0000000000000000004' },
-                { name: 'testval.foo', version: '0000000000000000003' },
                 { name: 'testval.foo', version: '0000000000000000002' },
                 { name: 'testval.foo', version: '0000000000000000001' },
             ]);
